@@ -1,0 +1,12 @@
+{
+  "name": "e2e-messenger-bot",
+  "version": "1.0.0",
+  "description": "Messenger spam bot for UID (E2E Style)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "facebook-chat-api": "^1.4.0"
+  }
+}
