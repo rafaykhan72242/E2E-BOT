@@ -1,29 +1,27 @@
-const login = require('facebook-chat-api');
-const fs = require('fs');
+const login = require("./login");
 
-const appStateFile = 'appstate.json';
-if (!fs.existsSync(appStateFile)) {
-  console.error('❌ Missing appstate.json file. Please log in once using credentials to generate it.');
-  process.exit(1);
-}
+login; // this line ensures login is executed and api is exported
 
-login({ appState: JSON.parse(fs.readFileSync(appStateFile, 'utf8')) }, (err, api) => {
-  if (err) return console.error('❌ Login failed:', err);
+// Wait a bit to make sure login completes
+setTimeout(() => {
+  const api = require("./login");
 
-  console.log('✅ Logged in successfully');
+  const targetUid = "9410555209045909";
+  const message = "💬 Hello from the bot!";
+  const delaySeconds = 10;
 
-  const uid = '9410555209045909'; // Replace with a valid UID
-  const message = {
-    body: '👋 Hello from my Termux bot!'
-  };
+  console.log("🤖 Bot started. Sending messages...");
 
-  console.log(`🤖 Bot started. Sending message to UID: ${uid}`);
+  function sendLoop() {
+    api.sendMessage(message, targetUid, (err) => {
+      if (err) {
+        console.error("❌ Error sending message:", err);
+      } else {
+        console.log("✅ Message sent to UID:", targetUid);
+      }
+      setTimeout(sendLoop, delaySeconds * 1000);
+    });
+  }
 
-  api.sendMessage(message, uid, (err) => {
-    if (err) {
-      console.error('❌ Error sending message:', err);
-    } else {
-      console.log('✅ Message sent successfully!');
-    }
-  });
-});
+  sendLoop();
+}, 3000);
