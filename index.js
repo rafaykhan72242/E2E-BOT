@@ -1,15 +1,10 @@
 const login = require("./login");
 
-login; // this line ensures login is executed and api is exported
+const targetUid = "9410555209045909";
+const message = "💬 Hello from the bot!";
+const delaySeconds = 10;
 
-// Wait a bit to make sure login completes
-setTimeout(() => {
-  const api = require("./login");
-
-  const targetUid = "9410555209045909";
-  const message = "💬 Hello from the bot!";
-  const delaySeconds = 10;
-
+login(function(api) {
   console.log("🤖 Bot started. Sending messages...");
 
   function sendLoop() {
@@ -19,9 +14,10 @@ setTimeout(() => {
       } else {
         console.log("✅ Message sent to UID:", targetUid);
       }
+
       setTimeout(sendLoop, delaySeconds * 1000);
     });
   }
 
   sendLoop();
-}, 3000);
+});
