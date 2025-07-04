@@ -1,9 +1,18 @@
-const login = require('facebook-chat-api');
-const fs = require('fs');
+const login = require("facebook-chat-api");
 
-login({ email: 'thefeezy72242@gmail.com', password: 'farazanees1234' }, (err, api) => {
-  if (err) return console.error('Login failed:', err);
+const credentials = {
+  email: "thefeezy72242@gmail.com",
+  password: "farazanees1234"
+};
 
-  fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
-  console.log('✅ Logged in and appstate.json saved!');
+login(credentials, (err, api) => {
+  if (err) {
+    console.error("❌ Login failed:", err);
+    return;
+  }
+
+  console.log("✅ Logged in successfully");
+
+  // Export the logged-in API so other files can use it
+  module.exports = api;
 });
