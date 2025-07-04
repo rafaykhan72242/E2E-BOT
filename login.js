@@ -5,14 +5,14 @@ const credentials = {
   password: "farazanees1234"
 };
 
-login(credentials, (err, api) => {
-  if (err) {
-    console.error("❌ Login failed:", err);
-    return;
-  }
+module.exports = function(callback) {
+  login(credentials, (err, api) => {
+    if (err) {
+      console.error("❌ Login failed:", err);
+      return;
+    }
 
-  console.log("✅ Logged in successfully");
-
-  // Export the logged-in API so other files can use it
-  module.exports = api;
-});
+    console.log("✅ Logged in successfully");
+    callback(api);
+  });
+};
