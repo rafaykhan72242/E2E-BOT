@@ -1,0 +1,7 @@
+{
+  "email": "your_email_here",
+  "password": "your_password_here",
+  "targetUID": "1234567890123456",
+  "message": "Hello from bot!",
+  "delay": 10000
+}
